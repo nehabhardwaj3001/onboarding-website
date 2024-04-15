@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Navigate,
   BrowserRouter,
 } from "react-router-dom";
 import Header from "./components/Header";
@@ -15,14 +14,6 @@ import LoginForm from "./pages/LoginForm";
 import RegistrationForm from "./pages/RegistrationForm";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-// Example authentication check function
-const isAuthenticated = () => {
-  // Check if email and password exist in local storage
-  const email = localStorage.getItem("email");
-  const password = localStorage.getItem("password");
-  return email && password;
-};
 
 function App() {
   return (

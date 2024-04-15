@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-function RegistrationForm() {
+const RegistrationForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,8 +24,6 @@ function RegistrationForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setEmailError("Invalid email format");
@@ -41,19 +39,15 @@ function RegistrationForm() {
       setPasswordError("");
     }
 
-    // Store role, email, and password in local storage
     localStorage.setItem("role", role);
     localStorage.setItem("email", email);
     localStorage.setItem("password", password);
 
     if (role === "admin") {
-      // Redirect to admin dashboard
       navigate("/dashboard");
     } else if (role === "customer") {
-      // Redirect to customer dashboard
       navigate("/onboarding");
     } else {
-      // Handle other roles or invalid selections
       setFormError("Selecting Role is required");
     }
   };
@@ -140,6 +134,6 @@ function RegistrationForm() {
       </Paper>
     </Box>
   );
-}
+};
 
 export default RegistrationForm;

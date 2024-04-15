@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import {
   Typography,
   Button,
-  TextField,
-  Grid,
-  Drawer,
   Box,
   Paper,
   List,
@@ -17,9 +14,9 @@ import { toast } from "react-toastify";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
-import { ToastContainer } from "react-toastify";
+import CustomerForm from "./CustomerForm";
 
-function DashboardPage() {
+const DashboardPage = () => {
   const [customers, setCustomers] = useState([
     { id: 1, name: "John Doe", email: "john@example.com" },
     { id: 2, name: "Jane Smith", email: "jane@example.com" },
@@ -59,7 +56,7 @@ function DashboardPage() {
 
   const handleEditCustomer = (customer) => {
     setEditCustomer(customer);
-    setNewCustomerName(customer.name); // Populate the input fields with the customer data
+    setNewCustomerName(customer.name);
     setNewCustomerEmail(customer.email);
     setShowEditForm(true);
   };
@@ -84,98 +81,28 @@ function DashboardPage() {
 
   return (
     <div style={{ padding: "20px" }}>
-      {/* Add Customer Form Drawer */}
-      <Drawer
-        anchor="right"
+      <CustomerForm
+        formTitle="Add Customer"
+        btnLabel="Add Customer"
         open={showAddForm}
         onClose={() => setShowAddForm(false)}
-        sx={{ maxWidth: "80vw" }}
-      >
-        <Box sx={{ width: "80vw", padding: "20px" }}>
-          <Typography
-            variant="h5"
-            align="center"
-            style={{ marginBottom: "20px", fontSize: "24px" }}
-          >
-            Add Customer
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Name"
-                value={newCustomerName}
-                onChange={(e) => setNewCustomerName(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Email"
-                value={newCustomerEmail}
-                onChange={(e) => setNewCustomerEmail(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} style={{ justifyContent: "end" }}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleAddCustomer}
-                startIcon={<AddIcon />}
-                sx={{ minWidth: "100px" }}
-              >
-                Add Customer
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </Drawer>
-
-      {/* Edit Customer Form Drawer */}
-      <Drawer
-        anchor="right"
+        newCustomerName={newCustomerName}
+        setNewCustomerName={setNewCustomerName}
+        newCustomerEmail={newCustomerEmail}
+        setNewCustomerEmail={setNewCustomerEmail}
+        onSubmit={handleAddCustomer}
+      />
+      <CustomerForm
+        formTitle="Edit Customer"
+        btnLabel="Save"
         open={showEditForm}
         onClose={() => setShowEditForm(false)}
-        sx={{ maxWidth: "80vw" }}
-      >
-        <Box sx={{ width: "80vw", padding: "20px" }}>
-          <Typography
-            variant="h5"
-            align="center"
-            style={{ marginBottom: "20px", fontSize: "24px" }}
-          >
-            Edit Customer
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Name"
-                value={newCustomerName}
-                onChange={(e) => setNewCustomerName(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Email"
-                value={newCustomerEmail}
-                onChange={(e) => setNewCustomerEmail(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSaveEdit}
-                sx={{ minWidth: "100px" }}
-              >
-                Save
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </Drawer>
+        newCustomerName={newCustomerName}
+        setNewCustomerName={setNewCustomerName}
+        newCustomerEmail={newCustomerEmail}
+        setNewCustomerEmail={setNewCustomerEmail}
+        onSubmit={handleSaveEdit}
+      />
 
       <Typography
         variant="h5"
@@ -185,7 +112,6 @@ function DashboardPage() {
         Customers
       </Typography>
 
-      {/* Show Add Customer Form Button */}
       {!showAddForm && (
         <Box display="flex" justifyContent="end" marginBottom="20px">
           <Button
@@ -200,7 +126,6 @@ function DashboardPage() {
         </Box>
       )}
 
-      {/* Customer List */}
       <Box>
         <List>
           {customers.map((customer) => (
@@ -229,10 +154,8 @@ function DashboardPage() {
           ))}
         </List>
       </Box>
-
-      {/* Toast Container for displaying success/error messages */}
     </div>
   );
-}
+};
 
 export default DashboardPage;
